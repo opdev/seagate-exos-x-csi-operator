@@ -1,0 +1,298 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "storage.seagate.io/v1alpha1",
+          "kind": "SeagateExosXCsi",
+          "metadata": {
+            "name": "seagateexosxcsi-sample"
+          },
+          "spec": {
+            "controller": {
+              "extraArgs": [
+                "-v=0"
+              ]
+            },
+            "csiAttacher": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/csi-attacher",
+                "tag": "v3.3.0"
+              },
+              "timeout": "30s"
+            },
+            "csiNodeRegistrar": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/csi-node-driver-registrar",
+                "tag": "v2.3.0"
+              }
+            },
+            "csiProvisioner": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/csi-provisioner",
+                "tag": "v3.0.0"
+              },
+              "timeout": "30s"
+            },
+            "csiResizer": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/csi-resizer",
+                "tag": "v1.3.0"
+              }
+            },
+            "csiSnapshotter": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/csi-snapshotter",
+                "tag": "v4.2.1"
+              }
+            },
+            "image": {
+              "pullPolicy": "Always",
+              "repository": "ghcr.io/seagate/seagate-exos-x-csi",
+              "tag": "v0.6.0"
+            },
+            "kubeletPath": "/var/lib/kubelet",
+            "multipathd": {
+              "extraArgs": []
+            },
+            "node": {
+              "extraArgs": [
+                "-v=0"
+              ]
+            },
+            "nodeLivenessProbe": {
+              "extraArgs": [],
+              "image": {
+                "repository": "k8s.gcr.io/sig-storage/livenessprobe",
+                "tag": "v2.4.0"
+              }
+            },
+            "nodeServer": {
+              "nodeAffinity": null,
+              "nodeSelector": null
+            },
+            "podMonitor": {
+              "enabled": false
+            },
+            "pspAdmissionControllerEnabled": false,
+            "serviceMonitor": {
+              "enabled": false
+            }
+          }
+        }
+      ]
+    capabilities: Basic Install
+    operators.operatorframework.io/builder: operator-sdk-v1.13.0+git
+    operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
+  name: seagate-exos-x-csi-operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: SeagateExosXCsi
+      name: seagateexosxcsis.storage.seagate.io
+      version: v1alpha1
+  description: Seagate Exos X CSI driver supports Seagate storage systems with 4xx5/5xx5
+    controllers (including OEM versions)
+  displayName: Seagate Exos X CSI Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+        - apiGroups:
+          - storage.seagate.io
+          resources:
+          - seagateexosxcsis
+          - seagateexosxcsis/status
+          - seagateexosxcsis/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterrolebindings
+          - clusterroles
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - serviceaccounts
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - rolebindings
+          - roles
+          verbs:
+          - '*'
+        - apiGroups:
+          - apps
+          resources:
+          - daemonsets
+          - deployments
+          verbs:
+          - '*'
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        serviceAccountName: seagate-exos-x-csi-operator-controller-manager
+      deployments:
+      - name: seagate-exos-x-csi-operator-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                control-plane: controller-manager
+            spec:
+              containers:
+              - args:
+                - --secure-listen-address=0.0.0.0:8443
+                - --upstream=http://127.0.0.1:8080/
+                - --logtostderr=true
+                - --v=10
+                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0
+                name: kube-rbac-proxy
+                ports:
+                - containerPort: 8443
+                  name: https
+                  protocol: TCP
+                resources: {}
+              - args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --leader-election-id=seagate-exos-x-csi-operator
+                image: quay.io/opdev/seagate-exos-x-csi-operator:0.0.1
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                name: manager
+                readinessProbe:
+                  httpGet:
+                    path: /readyz
+                    port: 8081
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                resources:
+                  limits:
+                    cpu: 200m
+                    memory: 100Mi
+                  requests:
+                    cpu: 100m
+                    memory: 60Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+              securityContext:
+                runAsNonRoot: true
+              serviceAccountName: seagate-exos-x-csi-operator-controller-manager
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: seagate-exos-x-csi-operator-controller-manager
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - storage
+  - csi
+  - seagate
+  links:
+  - name: Seagate Exos X Csi Operator
+    url: https://seagate-exos-x-csi-operator.domain
+  maturity: alpha
+  provider:
+    name: Seagate
+    url: www.seagate.com
+  version: 0.0.1
