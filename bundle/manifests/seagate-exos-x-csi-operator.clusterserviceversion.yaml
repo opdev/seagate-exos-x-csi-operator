@@ -91,7 +91,7 @@ metadata:
     capabilities: Basic Install
     operators.operatorframework.io/builder: operator-sdk-v1.13.0+git
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
-  name: seagate-exos-x-csi-operator.v0.0.1
+  name: seagate-exos-x-csi-operator.v0.0.2
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -109,6 +109,137 @@ spec:
   install:
     spec:
       clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - get
+          - list
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumes
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims
+          verbs:
+          - get
+          - list
+          - watch
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims/status
+          verbs:
+          - update
+          - patch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - list
+          - watch
+          - create
+          - update
+          - patch
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshots
+          verbs:
+          - get
+          - list
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshotclasses
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshotcontents
+          verbs:
+          - create
+          - get
+          - list
+          - watch
+          - update
+          - delete
+        - apiGroups:
+          - snapshot.storage.k8s.io
+          resources:
+          - volumesnapshotcontents/status
+          verbs:
+          - update
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - csinodes
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - nodes
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - volumeattachments
+          verbs:
+          - get
+          - list
+          - watch
+          - update
+          - patch
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - volumeattachments/status
+          verbs:
+          - get
+          - list
+          - watch
+          - update
+          - patch
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - get
+          - list
+          - watch
+        serviceAccountName: csi-provisioner
       - rules:
         - apiGroups:
           - ""
@@ -213,7 +344,7 @@ spec:
                 - --metrics-bind-address=127.0.0.1:8080
                 - --leader-elect
                 - --leader-election-id=seagate-exos-x-csi-operator
-                image: quay.io/opdev/seagate-exos-x-csi-operator:0.0.1
+                image: quay.io/opdev/seagate-exos-x-csi-operator:0.0.2
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -241,6 +372,48 @@ spec:
               serviceAccountName: seagate-exos-x-csi-operator-controller-manager
               terminationGracePeriodSeconds: 10
       permissions:
+      - rules:
+        - apiGroups:
+          - policy
+          resourceNames:
+          - systems-role
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        serviceAccountName: csi-node-registrar
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - endpoints
+          verbs:
+          - get
+          - watch
+          - list
+          - delete
+          - update
+          - create
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - watch
+          - list
+          - delete
+          - update
+          - create
+        - apiGroups:
+          - policy
+          resourceNames:
+          - seagate-exos-x-csi
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        serviceAccountName: csi-provisioner
       - rules:
         - apiGroups:
           - ""
@@ -295,4 +468,4 @@ spec:
   provider:
     name: Seagate
     url: www.seagate.com
-  version: 0.0.1
+  version: 0.0.2

@@ -1,0 +1,11 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: csi-node-registrar-role-cfg-systems
+subjects:
+  - kind: ServiceAccount
+    name: csi-node-registrar
+roleRef:
+  kind: Role
+  name: csi-node-registrar-cfg-systems
+  apiGroup: rbac.authorization.k8s.io

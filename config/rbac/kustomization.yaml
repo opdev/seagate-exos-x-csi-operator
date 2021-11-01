@@ -16,3 +16,8 @@ resources:
 - auth_proxy_role.yaml
 - auth_proxy_role_binding.yaml
 - auth_proxy_client_clusterrole.yaml
+# Additional Roles and RoleBindings
+- csi_node_registrar_role.yaml
+- csi_node_registrar_role_binding.yaml
+- csi_provisioner_role.yaml
+- csi_provisioner_role_binding.yaml
