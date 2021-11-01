@@ -8,7 +8,13 @@ metadata:
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
-  customresourcedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - description: Represents the Seagate Exos X CSI Driver
+      displayName: Seagate Exos X CSI Driver
+      kind: SeagateExosXCsi
+      name: seagateexosxcsis.storage.seagate.io
+      version: v1alpha1
   description: Seagate Exos X CSI driver supports Seagate storage systems with 4xx5/5xx5
     controllers (including OEM versions)
   displayName: Seagate Exos X CSI Operator

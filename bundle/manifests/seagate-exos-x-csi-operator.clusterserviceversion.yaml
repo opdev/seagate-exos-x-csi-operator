@@ -97,7 +97,9 @@ spec:
   apiservicedefinitions: {}
   customresourcedefinitions:
     owned:
-    - kind: SeagateExosXCsi
+    - description: Represents the Seagate Exos X CSI Driver
+      displayName: Seagate Exos X CSI Driver
+      kind: SeagateExosXCsi
       name: seagateexosxcsis.storage.seagate.io
       version: v1alpha1
     - kind: VolumeSnapshotClass
