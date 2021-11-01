@@ -1,0 +1,24 @@
+annotations:
+  artifacthub.io/images: |
+    - name: csi-driver
+      image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+apiVersion: v2
+appVersion: v2
+description: A dynamic persistent volume (PV) provisioner for Seagate Exos X storage
+  systems.
+home: https://github.com/Seagate/seagate-exos-x-csi
+keywords:
+- storage
+- iscsi
+- plugin
+- csi
+maintainers:
+- name: Seagate
+  url: https://github.com/Seagate
+- email: joseph.skazinski@seagate.com
+  name: Joe Skazinski
+name: seagate-exos-x-csi
+sources:
+- https://github.com/Seagate/seagate-exos-x-csi/tree/main/helm/csi-charts
+type: application
+version: 1.0.0

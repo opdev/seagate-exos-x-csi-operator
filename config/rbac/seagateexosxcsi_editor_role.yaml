@@ -1,0 +1,24 @@
+# permissions for end users to edit seagateexosxcsis.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: seagateexosxcsi-editor-role
+rules:
+- apiGroups:
+  - storage.seagate.io
+  resources:
+  - seagateexosxcsis
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - storage.seagate.io
+  resources:
+  - seagateexosxcsis/status
+  verbs:
+  - get

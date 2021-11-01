@@ -1,0 +1,31 @@
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: systems-controller-metrics
+  labels:
+    name: systems-controller-metrics
+{{ include "csidriver.labels" . | indent 4 }}
+spec:
+  ports:
+  - name: metrics
+    port: 9842
+    targetPort: metrics
+    protocol: TCP
+  selector:
+    app: seagate-exos-x-csi-controller-server
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: seagate-exos-x-csi-controller-exporter
+  labels:
+{{ include "csidriver.labels" . | indent 4 }}
+spec:
+  selector:
+    matchLabels:
+      name: systems-controller-metrics
+  endpoints:
+  - port: metrics
+    interval: 1s
+{{- end }}

@@ -1,0 +1,61 @@
+apiVersion: storage.seagate.io/v1alpha1
+kind: SeagateExosXCsi
+metadata:
+  name: seagateexosxcsi-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/seagate-exos-x-csi/values.yaml
+  controller:
+    extraArgs:
+    - -v=0
+  csiAttacher:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/csi-attacher
+      tag: v3.3.0
+    timeout: 30s
+  csiNodeRegistrar:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/csi-node-driver-registrar
+      tag: v2.3.0
+  csiProvisioner:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/csi-provisioner
+      tag: v3.0.0
+    timeout: 30s
+  csiResizer:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/csi-resizer
+      tag: v1.3.0
+  csiSnapshotter:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/csi-snapshotter
+      tag: v4.2.1
+  image:
+    pullPolicy: Always
+    repository: ghcr.io/seagate/seagate-exos-x-csi
+    tag: v0.6.0
+  kubeletPath: /var/lib/kubelet
+  multipathd:
+    extraArgs: []
+  node:
+    extraArgs:
+    - -v=0
+  nodeLivenessProbe:
+    extraArgs: []
+    image:
+      repository: k8s.gcr.io/sig-storage/livenessprobe
+      tag: v2.4.0
+  nodeServer:
+    nodeAffinity: null
+    nodeSelector: null
+  podMonitor:
+    enabled: false
+  pspAdmissionControllerEnabled: false
+  serviceMonitor:
+    enabled: false
+  
+  

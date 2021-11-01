@@ -1,0 +1,20 @@
+# permissions for end users to view seagateexosxcsis.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: seagateexosxcsi-viewer-role
+rules:
+- apiGroups:
+  - storage.seagate.io
+  resources:
+  - seagateexosxcsis
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - storage.seagate.io
+  resources:
+  - seagateexosxcsis/status
+  verbs:
+  - get
