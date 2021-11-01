@@ -100,6 +100,24 @@ spec:
     - kind: SeagateExosXCsi
       name: seagateexosxcsis.storage.seagate.io
       version: v1alpha1
+    - kind: VolumeSnapshotClass
+      name: volumesnapshotclasses.snapshot.storage.k8s.io
+      version: v1
+    - kind: VolumeSnapshotClass
+      name: volumesnapshotclasses.snapshot.storage.k8s.io
+      version: v1beta1
+    - kind: VolumeSnapshotContent
+      name: volumesnapshotcontents.snapshot.storage.k8s.io
+      version: v1
+    - kind: VolumeSnapshotContent
+      name: volumesnapshotcontents.snapshot.storage.k8s.io
+      version: v1beta1
+    - kind: VolumeSnapshot
+      name: volumesnapshots.snapshot.storage.k8s.io
+      version: v1
+    - kind: VolumeSnapshot
+      name: volumesnapshots.snapshot.storage.k8s.io
+      version: v1beta1
   description: Seagate Exos X CSI driver supports Seagate storage systems with 4xx5/5xx5
     controllers (including OEM versions)
   displayName: Seagate Exos X CSI Operator

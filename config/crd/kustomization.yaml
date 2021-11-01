@@ -3,4 +3,7 @@
 # It should be run by config/default
 resources:
 - bases/storage.seagate.io_seagateexosxcsis.yaml
+- volumesnapshots/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+- volumesnapshots/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+- volumesnapshots/snapshot.storage.k8s.io_volumesnapshots.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
