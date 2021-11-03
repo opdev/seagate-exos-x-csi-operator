@@ -28,6 +28,11 @@ spec:
       - args:
         - --leader-elect
         - --leader-election-id=seagate-exos-x-csi-operator
+        env:
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['olm.targetNamespaces']
         image: controller:latest
         name: manager
         securityContext:
