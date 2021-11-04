@@ -90,12 +90,12 @@ metadata:
       ]
     capabilities: Basic Install
     categories: Storage
-    containerImage: quay.io/opdev/seagate-exos-x-csi-operator:0.0.3
+    containerImage: quay.io/opdev/seagate-exos-x-csi-operator:0.0.4
     operators.operatorframework.io/builder: operator-sdk-v1.13.0+git
     operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
     repository: https://github.com/opdev/seagate-exos-x-csi-operator
     support: https://github.com/opdev/seagate-exos-x-csi-operator/issues
-  name: seagate-exos-x-csi-operator.v0.0.3
+  name: seagate-exos-x-csi-operator.v0.0.4
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -363,7 +363,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.annotations['olm.targetNamespaces']
-                image: quay.io/opdev/seagate-exos-x-csi-operator:0.0.3
+                image: quay.io/opdev/seagate-exos-x-csi-operator:0.0.4
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -487,4 +487,4 @@ spec:
   provider:
     name: Seagate
     url: www.seagate.com
-  version: 0.0.3
+  version: 0.0.4
