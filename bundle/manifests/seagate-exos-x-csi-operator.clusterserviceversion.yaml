@@ -400,6 +400,14 @@ spec:
           - podsecuritypolicies
           verbs:
           - use
+        - apiGroups:
+          - security.openshift.io
+          resourceNames:
+          - privileged
+          resources:
+          - securitycontextconstraints
+          verbs:
+          - use
         serviceAccountName: csi-node-registrar
       - rules:
         - apiGroups:

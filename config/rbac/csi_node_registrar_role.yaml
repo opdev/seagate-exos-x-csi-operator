@@ -11,3 +11,11 @@ rules:
   - use
   resourceNames:
   - systems-role
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - privileged
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
