@@ -5,7 +5,7 @@ metadata:
     alm-examples: '[]'
     capabilities: Basic Install
     categories: Storage
-    containerImage: quay.io/opdev/seagate-exos-x-csi-operator:0.0.4
+    containerImage: quay.io/opdev/seagate-exos-x-csi-operator:0.0.5
     repository: https://github.com/opdev/seagate-exos-x-csi-operator
     support: https://github.com/opdev/seagate-exos-x-csi-operator/issues
   name: seagate-exos-x-csi-operator.v0.0.0
