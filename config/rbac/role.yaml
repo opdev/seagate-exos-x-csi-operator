@@ -48,6 +48,12 @@ rules:
 - verbs:
   - "*"
   apiGroups:
+  - "policy"
+  resources:
+  - "podsecuritypolicies"
+- verbs:
+  - "*"
+  apiGroups:
   - "apps"
   resources:
   - "daemonsets"

@@ -308,6 +308,12 @@ spec:
           - update
           - watch
         - apiGroups:
+          - policy
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - '*'
+        - apiGroups:
           - apps
           resources:
           - daemonsets
