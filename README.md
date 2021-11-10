@@ -20,13 +20,13 @@ There are three ways to run/install the Operator:
 To install the Operator through the Openshift UI, we first create a index:
 
 ```sh
-$ opm index add --bundles quay.io/opdev/seagate-exos-x-csi-operator-bundle:v0.0.3 --tag quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.3 -c docker
+$ opm index add --bundles quay.io/opdev/seagate-exos-x-csi-operator-bundle:v0.0.6 --tag quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.6 -c docker
 ```
 
 Once the index is created, we will push the index image to any repository
 
 ```sh
-$ docker push quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.3
+$ docker push quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.6
 ```
 
 Next, we will be creating a CatalogSource and adding the newly created
@@ -41,7 +41,7 @@ metadata:
   namespace: openshift-marketplace
 spec:
   sourceType: grpc
-  image: quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.3
+  image: quay.io/opdev/seagate-exos-x-csi-operator-index:0.0.6
   displayName: Test Operators
   publisher: Red Hat Partner
 ```
@@ -73,7 +73,7 @@ $ make bundle bundle-build bundle-push
 Make sure that the bundle image is public.
 
 ```sh
-$ operator-sdk run bundle quay.io/opdev/seagate-exos-x-csi-operator-bundle:v0.0.3
+$ operator-sdk run bundle quay.io/opdev/seagate-exos-x-csi-operator-bundle:v0.0.6
 ```
 
 ### Run outside the OpenShift cluster(`make run`)

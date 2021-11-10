@@ -13,4 +13,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: quay.io/opdev/seagate-exos-x-csi-operator
-  newTag: 0.0.5
+  newTag: 0.0.6
