@@ -81,7 +81,6 @@ metadata:
             "podMonitor": {
               "enabled": false
             },
-            "pspAdmissionControllerEnabled": false,
             "serviceMonitor": {
               "enabled": false
             }
@@ -308,12 +307,6 @@ spec:
           - update
           - watch
         - apiGroups:
-          - policy
-          resources:
-          - podsecuritypolicies
-          verbs:
-          - '*'
-        - apiGroups:
           - apps
           resources:
           - daemonsets
@@ -399,14 +392,6 @@ spec:
       permissions:
       - rules:
         - apiGroups:
-          - policy
-          resourceNames:
-          - systems-role
-          resources:
-          - podsecuritypolicies
-          verbs:
-          - use
-        - apiGroups:
           - security.openshift.io
           resourceNames:
           - privileged
@@ -438,14 +423,6 @@ spec:
           - delete
           - update
           - create
-        - apiGroups:
-          - policy
-          resourceNames:
-          - seagate-exos-x-csi
-          resources:
-          - podsecuritypolicies
-          verbs:
-          - use
         serviceAccountName: csi-provisioner
       - rules:
         - apiGroups:

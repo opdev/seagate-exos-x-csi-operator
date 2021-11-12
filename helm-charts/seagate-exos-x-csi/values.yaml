@@ -4,8 +4,6 @@
 
 # -- Path to kubelet
 kubeletPath: /var/lib/kubelet
-# -- Wether psp admission controller has been enabled in the cluster or not
-pspAdmissionControllerEnabled: false
 
 image:
   # -- Docker repository to use for nodes and controller

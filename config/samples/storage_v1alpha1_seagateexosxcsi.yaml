@@ -54,7 +54,6 @@ spec:
     nodeSelector: null
   podMonitor:
     enabled: false
-  pspAdmissionControllerEnabled: false
   serviceMonitor:
     enabled: false
   

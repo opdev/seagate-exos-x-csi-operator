@@ -4,14 +4,6 @@ metadata:
   name: csi-node-registrar-cfg-systems
 rules:
 - apiGroups:
-  - policy
-  resources:
-  - podsecuritypolicies
-  verbs:
-  - use
-  resourceNames:
-  - systems-role
-- apiGroups:
   - security.openshift.io
   resourceNames:
   - privileged
